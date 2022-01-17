@@ -2,9 +2,9 @@
 
 import 'dart:math';
 
-import 'package:first_app/bmi_result_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+import 'bmi_result_screen.dart';
 
 class BmiScreen extends StatefulWidget {
   const BmiScreen({Key? key}) : super(key: key);
@@ -35,7 +35,7 @@ class _BmiScreenState extends State<BmiScreen> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: GestureDetector(
+                        child: InkWell(
                           onTap: () {
                             setState(() {
                               isMale = true;
@@ -73,7 +73,7 @@ class _BmiScreenState extends State<BmiScreen> {
                         width: 15.0,
                       ),
                       Expanded(
-                        child: GestureDetector(
+                        child: InkWell(
                           onTap: () {
                             setState(() {
                               isMale = false;

@@ -1,17 +1,17 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 
 import 'package:flutter/material.dart';
-
+import 'package:first_app/models/user/users_model.dart';
 
 
 class UsersScreen extends StatelessWidget {
   List<UserModel> users = [
     UserModel(id: 1, name: 'Ahmed', phone: '01210540340'),
-    UserModel(id: 2, name: 'Shreen', phone: '01210333555'),
+    UserModel(id: 2, name: 'Sheen', phone: '01210333555'),
     UserModel(id: 3, name: 'Ali', phone: '01210456321'),
     UserModel(id: 4, name: 'Hani', phone: '01210654238'),
     UserModel(id: 5, name: 'Yahya', phone: '01210340840'),
-    UserModel(id: 6, name: 'Marwa', phone: '01210340540'),
+    UserModel(id: 6, name: 'Mara', phone: '01210340540'),
     UserModel(id: 7, name: 'Mina', phone: '01210340549')
   ];
 
