@@ -31,7 +31,6 @@ dependencies:
     sdk: flutter
   sqflite: ^2.0.2
   intl: ^0.17.0
-  conditional_builder: ^1.0.2
     
 
 

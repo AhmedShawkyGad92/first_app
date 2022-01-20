@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, avoid_print,, sized_box_for_whitespace, missing_required_param, import_of_legacy_library_into_null_safe
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, avoid_print,, sized_box_for_whitespace, missing_required_param, import_of_legacy_library_into_null_safe, unrelated_type_equality_checks, unnecessary_null_comparison
 
 import 'package:first_app/modules/archived_taskes/archived_taskes_screen.dart';
 import 'package:first_app/modules/done_taskes/done_taskes_screen.dart';
@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
-import 'package:conditional_builder/conditional_builder.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({Key? key}) : super(key: key);
@@ -53,13 +52,9 @@ class _HomeLayoutState extends State<HomeLayout> {
       appBar: AppBar(
         title: Text(titles[currentIndex]),
       ),
-      body: ConditionalBuilder(
-        condition: tasks.isNotEmpty,
-        builder: (context) => screens[currentIndex],
-        fallback: (context) => Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
+      body: tasks.length == null
+          ? Center(child: CircularProgressIndicator())
+          : screens[currentIndex],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (isBottomSheetOn) {
@@ -69,10 +64,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                       time: _controller.text,
                       date: _dateController.text)
                   .then((value) {
-                Navigator.pop(context);
-                isBottomSheetOn = false;
-                setState(() {
-                  fabicon = Icons.edit;
+                getDataFromDatabase(database).then((value) {
+                  Navigator.pop(context);
+                  setState(() {
+                    isBottomSheetOn = false;
+                    fabicon = Icons.edit;
+                    tasks = value;
+                    print(value);
+                  });
                 });
               });
             }
@@ -106,7 +105,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                               keyboardType: TextInputType.datetime,
                               decoration: const InputDecoration(
                                 icon: Icon(Icons.timer),
-                                labelText: 'Time Day ',
+                                labelText: 'Time Day',
                               ),
                               onSaved: (String? value) {},
                               onTap: () {
@@ -224,7 +223,7 @@ class _HomeLayoutState extends State<HomeLayout> {
     required String date,
     required String time,
   }) async {
-    return await database.transaction((txn) {
+    await database.transaction((txn) {
       return txn
           .rawInsert(
               'INSERT INTO tasks (title, data, time, status) VALUES("$title","$date","$time","new")')
@@ -232,7 +231,6 @@ class _HomeLayoutState extends State<HomeLayout> {
         print('$value inserted Done !!');
       }).catchError((err) {
         print('error insert to tables ${err.toString()}');
-        return null;
       });
     });
   }
