@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
 
 import 'package:first_app/shared/components/component.dart';
 import 'package:first_app/shared/constans.dart';
@@ -14,13 +14,14 @@ class newTaskesScreen extends StatefulWidget {
 class _newTaskesScreenState extends State<newTaskesScreen> {
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        itemBuilder: (context, index) => buildTaskItem(tasks[index]),
-        separatorBuilder: (context, index) => Container(
-              width: double.infinity,
-              height: 1,
-              color: Colors.grey[300],
-            ),
-        itemCount: tasks.length);
+    return Container();
+    // return ListView.separated(
+    //     itemBuilder: (context, index) => buildTaskItem(tasks[index]),
+    //     separatorBuilder: (context, index) => Container(
+    //           width: double.infinity,
+    //           height: 1,
+    //           color: Colors.grey[300],
+    //         ),
+    //     itemCount: tasks.length);
   }
 }
